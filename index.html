@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina Web</title>
+    <head>
+  <meta charset="UTF-8">
+  <title>Tomorrowland 2025</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #000428, #004e92); /* Fondo azul oscuro con degradado */
+      color: white;
+    }
+
+    header {
+      background-color: #ff0066;
+      padding: 20px;
+      text-align: center;
+      font-size: 2em;
+      color: white;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+    section {
+      padding: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #ffcc00;
+      border-bottom: 2px solid #ffcc00;
+      padding-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    p {
+      line-height: 1.6;
+      font-size: 1.1em;
+    }
+
+    footer {
+      background-color: #222;
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+      font-size: 0.9em;
+    }
+
+    a {
+      color: #00ffff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #ff00ff;
+    }
+  </style>
+</head>
+<body>
+    <center>
+        <div class="caja-negra">
+        <header>
+        <h1>Tomorrowland 2025</h1>
+        <nav>
+            <a href="info">Información</a>
+            <a href="galeria">Galeria</a>
+            <a href="videos">Videos</a>
+            <a href="ubicacion">Ubicación</a>
+            <a href="redes">Redes Sociales</a>
+        </nav>
+        </header>
+        </div>
+
+        <div>
+        <main>
+            <section id="info">
+                <h2>Sobre Tomorroland</h2>
+                <p>
+                    Tomorrowland es un festival anual de música electrónica de baile (EDM) que se celebra en Boom, Bélgica. Es conocido por su elaborada puesta en escena, temática, y por reunir a algunos de los mejores DJs y productores de música electrónica del mundo. Además de la música, Tomorrowland ofrece una experiencia inmersiva con escenarios fantásticos, áreas temáticas, opciones de alojamiento y comida, y la atmósfera única que transmite.
+                </p>
+                <img src="../PaginaWeb/Festival_Tomorrowland.jpg" alt="festival" width="500px">
+
+            </section>
+        
+            <section id="galeria">
+                <h2>Carrusel</h2>
+               
+                 <div id="mi-carrusel"></div>
+    <script>
+        const misImagenes = [
+            "img/1.jpg",
+            "img/2.jpg", 
+            "img/3.jpg",
+            "img/4.jpg",
+            "img/5.jpg"
+        ];
+
+       
+        function crearEstilos() {
+            const estilos = document.createElement('style');
+            estilos.innerHTML = `
+                body {
+                    margin: 0;
+                    padding: 20px;
+                    background-color: #f0f0f0;
+                    font-family: Arial, sans-serif;
+                }
+
+                .carrusel {
+                    width: 600px;
+                    height: 300px;
+                    margin: 50px auto;
+                    position: relative;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+                }
+
+                .imagen {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    opacity: 0;
+                    transition: opacity 0.5s;
+                }
+
+                .imagen.visible {
+                    opacity: 1;
+                }
+
+                .imagen img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                .burbujas {
+                    text-align: center;
+                    margin-top: 20px;
+                }
+
+                .burbuja {
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 50%;
+                    background-color: #ccc;
+                    margin: 0 5px;
+                    cursor: pointer;
+                    display: inline-block;
+                }
+
+                .burbuja.activa {
+                    background-color: #007bff;
+                }
+            `;
+            document.head.appendChild(estilos);
+        }
+
+        
+        function crearCarrusel() {
+            const contenedor = document.getElementById('mi-carrusel');
+            
+            // Crear el div principal del carrusel
+            const carrusel = document.createElement('div');
+            carrusel.className = 'carrusel';
+            
+            // Crear cada imagen
+            for (let i = 0; i < misImagenes.length; i++) {
+                const divImagen = document.createElement('div');
+                divImagen.className = 'imagen';
+                
+                // La primera imagen se ve al inicio
+                if (i === 0) {
+                    divImagen.className = 'imagen visible';
+                }
+                
+                const img = document.createElement('img');
+                img.src = misImagenes[i];
+                img.alt = 'Imagen ' + (i + 1);
+                
+                divImagen.appendChild(img);
+                carrusel.appendChild(divImagen);
+            }
+            
+            // Crear las burbujas
+            const burbujas = document.createElement('div');
+            burbujas.className = 'burbujas';
+            
+            for (let i = 0; i < misImagenes.length; i++) {
+                const burbuja = document.createElement('div');
+                burbuja.className = 'burbuja';
+                
+                // La primera burbuja está activa al inicio
+                if (i === 0) {
+                    burbuja.className = 'burbuja activa';
+                }
+                
+                // Cuando hago click en una burbuja, voy a esa imagen
+                burbuja.onclick = function() {
+                    irAImagen(i);
+                };
+                
+                burbujas.appendChild(burbuja);
+            }
+            
+            contenedor.appendChild(carrusel);
+            contenedor.appendChild(burbujas);
+        }
+
+      
+        let imagenActual = 0;  // Empiezo en la imagen 0
+        let temporizador;      // Para el cambio automático
+
+       
+        function irAImagen(numeroImagen) {
+            // Busco todas las imágenes y burbujas
+            const todasLasImagenes = document.querySelectorAll('.imagen');
+            const todasLasBurbujas = document.querySelectorAll('.burbuja');
+            
+            // Quito la clase 'visible' y 'activa' de todas
+            for (let i = 0; i < todasLasImagenes.length; i++) {
+                todasLasImagenes[i].classList.remove('visible');
+                todasLasBurbujas[i].classList.remove('activa');
+            }
+            
+            // Muestro la imagen que quiero
+            todasLasImagenes[numeroImagen].classList.add('visible');
+            todasLasBurbujas[numeroImagen].classList.add('activa');
+            
+            // Actualizo cuál es la imagen actual
+            imagenActual = numeroImagen;
+        }
+
+       
+        function siguienteImagen() {
+            // Si estoy en la última imagen, vuelvo a la primera
+            if (imagenActual === misImagenes.length - 1) {
+                irAImagen(0);
+            } else {
+                // Si no, voy a la siguiente
+                irAImagen(imagenActual + 1);
+            }
+        }
+
+       
+        function iniciarAutomatico() {
+            temporizador = setInterval(siguienteImagen, 3000); // Cada 3 segundos
+        }
+
+      
+        function detenerAutomatico() {
+            clearInterval(temporizador);
+        }
+
+        // PASO 9: Cuando la página carga, crear todo
+        window.onload = function() {
+            crearEstilos();     // Crear los estilos CSS
+            crearCarrusel();    // Crear el HTML
+            iniciarAutomatico(); // Empezar el cambio automático
+            
+            console.log('¡Carrusel creado!');
+            console.log(' Cambia cada 3 segundos');
+            console.log(' Haz click en las burbujas para navegar');
+        };
+    </script>
+
+
+            </section>
+           <section id="videos">
+            <h2>Aftermovies Oficiales</h2>
+            <p>
+                Mira estos resumenes de ediciones anteriores del Festival.
+            </p>
+            <div id="carrusel-videos"></div>
+            </section>
+
+            <script>
+    // Lista de videos
+    const misVideos = [
+        "tomorrowland.mp4",
+        "tomorrowland2.mp4",
+        "tomorrowland3.mp4",
+        "tomorrowland4.mp4",
+    ];
+
+    function crearEstilosVideos() {
+        const estilos = document.createElement('style');
+        estilos.innerHTML = `
+            .carrusel-videos {
+                width: 600px;
+                height: 300px;
+                margin: 50px auto;
+                position: relative;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+                background: #000;
+            }
+            .video {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                transition: opacity 0.5s;
+            }
+            .video.visible {
+                opacity: 1;
+            }
+            .video video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .burbujas-videos {
+                text-align: center;
+                margin-top: 20px;
+            }
+            .burbuja-video {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background-color: #ccc;
+                margin: 0 5px;
+                cursor: pointer;
+                display: inline-block;
+            }
+            .burbuja-video.activa {
+                background-color: #007bff;
+            }
+        `;
+        document.head.appendChild(estilos);
+    }
+
+    function crearCarruselVideos() {
+        const contenedor = document.getElementById('carrusel-videos');
+        
+        const carrusel = document.createElement('div');
+        carrusel.className = 'carrusel-videos';
+        
+        // Crear cada video
+        for (let i = 0; i < misVideos.length; i++) {
+            const divVideo = document.createElement('div');
+            divVideo.className = 'video';
+            
+            if (i === 0) divVideo.className = 'video visible';
+            
+           const video = document.createElement('video');
+            video.src = misVideos[i];
+            video.controls = true;
+            video.muted = true;      // Necesario para que el autoplay funcione en la mayoría de navegadores
+            video.autoplay = true;  // Se activará manualmente al mostrarlo
+                        
+            divVideo.appendChild(video);
+            carrusel.appendChild(divVideo);
+        }
+        
+        // Crear burbujas
+        const burbujas = document.createElement('div');
+        burbujas.className = 'burbujas-videos';
+        
+        for (let i = 0; i < misVideos.length; i++) {
+            const burbuja = document.createElement('div');
+            burbuja.className = 'burbuja-video';
+            
+            if (i === 0) burbuja.className = 'burbuja-video activa';
+            
+            burbuja.onclick = function() {
+                irAVideo(i);
+            };
+            
+            burbujas.appendChild(burbuja);
+        }
+        
+        contenedor.appendChild(carrusel);
+        contenedor.appendChild(burbujas);
+    }
+
+    let videoActual = 0;
+    let temporizadorVideos;
+
+    function irAVideo(numeroVideo) {
+        const todosLosVideos = document.querySelectorAll('.video');
+        const todasLasBurbujas = document.querySelectorAll('.burbuja-video');
+
+        
+        // Pausar videos antes de cambiar
+        todosLosVideos.forEach(v => {
+            v.querySelector('video').pause();
+            v.classList.remove('visible');
+        });
+        todasLasBurbujas.forEach(b => b.classList.remove('activa'));
+        
+        todosLosVideos[numeroVideo].classList.add('visible');
+        todasLasBurbujas[numeroVideo].classList.add('activa');
+        
+        videoActual = numeroVideo;
+    }
+
+    function siguienteVideo() {
+        if (videoActual === misVideos.length - 1) {
+            irAVideo(0);
+        } else {
+            irAVideo(videoActual + 1);
+        }
+    }
+
+    function iniciarAutomaticoVideos() {
+        temporizadorVideos = setInterval(siguienteVideo, 30000); // cada 30 segundos
+    }
+
+    // Llamar funciones cuando la página cargue
+    window.onload = function() {
+        // Mantener las funciones que ya tienes para las imágenes
+        crearEstilos();
+        crearCarrusel();
+        iniciarAutomatico();
+
+        // Ahora las funciones para los videos
+        crearEstilosVideos();
+        crearCarruselVideos();
+        iniciarAutomaticoVideos();
+    };
+</script>
+
+            <section id="ubicacion">
+                <h2>Ubicación del Evento</h2>
+                <p>
+                    Tomorroland se lleva a cabo en Boom, Belgica. Aquí puedes ver el lugar exacto.
+                </p>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2505.899131356809!2d4.3831270758723155!3d51.09186902292548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3ef003bbb838b%3A0x4c30f556399940d3!2sTomorrowland%20Belgium!5e0!3m2!1ses-419!2sco!4v1754311136705!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                <h3>Stretview del Lugar</h3>
+                <iframe src="https://www.google.com/maps/embed?pb=!4v1754314023033!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ01ocnpYNUFF!2m2!1d51.09250636540838!2d4.385486168078703!3f0!4f0!5f0.4000000000000002" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+
+            </section>
+
+            <section id="redes">
+                <h2>Siguelos en sus Redes Sociales</h2>
+                <ul>
+                    <a href="https:/www.Instagram.com/tomorrowland" target="_blank">Instagram</a>
+                    <a href="https:/www.facebook.com/tomorrowland" target="_blank">Facebook</a>
+                    <a href="https:/twiter.com/tomorrowland" target="_blank">Twiter</a>
+                    <a href="https:/www.youtube.com/user/tomorrowlandChanel" target="_blank">Youtube</a>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+    <div>
+        <h3>Integrantes:</h3>
+        <h5>Esthefany Chavez</h5>
+        <h5>Juan David Bedoya</h5>
+
+    </div>
+
+   </center>
+</body>
+</html>
